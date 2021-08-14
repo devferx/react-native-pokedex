@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import ImageColors from 'react-native-image-colors';
+
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
 
@@ -17,9 +19,36 @@ interface Props {
 }
 
 export const PokemonCard = ({pokemon}: Props) => {
+  const [bgColor, setBgColor] = useState('hotpink');
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    ImageColors.getColors(pokemon.picture, {
+      fallback: 'hotpink',
+    }).then(colors => {
+      colors.platform === 'android'
+        ? setBgColor(colors.dominant || 'hotpink')
+        : setBgColor(colors.background || 'hotpink');
+    });
+
+    return () => {
+      isMounted.current = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <TouchableOpacity activeOpacity={0.9}>
-      <View style={{...styles.cardContainer, width: windowWidth * 0.42}}>
+    <TouchableOpacity activeOpacity={0.9} onPress={() => {}}>
+      <View
+        style={{
+          ...styles.cardContainer,
+          width: windowWidth * 0.42,
+          backgroundColor: bgColor,
+        }}>
         <Text style={styles.name}>
           {pokemon.name}
           {'\n#' + pokemon.id}
@@ -39,7 +68,6 @@ export const PokemonCard = ({pokemon}: Props) => {
 const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 10,
-    backgroundColor: 'hotpink',
     height: 120,
     marginBottom: 25,
     borderRadius: 10,
