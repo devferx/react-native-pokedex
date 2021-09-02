@@ -1,18 +1,23 @@
 import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
-
+import {StyleProp, StyleSheet, TextInput, View, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const SearchInput = () => {
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SearchInput = ({style = {}}: Props) => {
   return (
-    <View style={styles.textBg}>
-      <TextInput
-        placeholder="Buscar pokemon"
-        style={styles.textInput}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <Icon name="search-outline" size={20} />
+    <View style={style}>
+      <View style={styles.textBg}>
+        <TextInput
+          placeholder="Buscar pokemon"
+          style={styles.textInput}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Icon name="search-outline" size={20} />
+      </View>
     </View>
   );
 };
