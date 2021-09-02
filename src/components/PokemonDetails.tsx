@@ -80,10 +80,8 @@ export const PokemonDetails = ({pokemon}: Props) => {
           <Text style={styles.title}>Stats</Text>
 
           {pokemon.stats.map(({stat, base_stat}, index) => (
-            <View key={stat.name + index} style={{flexDirection: 'row'}}>
-              <Text style={{...styles.regularText, marginRight: 1, width: 150}}>
-                {stat.name}
-              </Text>
+            <View key={stat.name + index} style={styles.statsContainer}>
+              <Text style={styles.statsTitle}>{stat.name}</Text>
 
               <Text key={index} style={styles.boldText}>
                 {base_stat}
@@ -141,5 +139,13 @@ const styles = StyleSheet.create({
   finalSpriteContainer: {
     marginVertical: 28,
     alignItems: 'center',
+  },
+  statsContainer: {
+    flexDirection: 'row',
+  },
+  statsTitle: {
+    fontSize: 17,
+    marginRight: 1,
+    width: 150,
   },
 });
