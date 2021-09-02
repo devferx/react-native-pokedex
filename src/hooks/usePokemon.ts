@@ -12,8 +12,8 @@ export const usePokemon = (id: string) => {
       `https://pokeapi.co/api/v2/pokemon/${id}`,
     );
 
-    setIsLoading(false);
     setPokemon(resp.data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
