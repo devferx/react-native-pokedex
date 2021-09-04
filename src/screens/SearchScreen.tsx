@@ -21,11 +21,19 @@ export const SearchScreen = () => {
       return setPokemonFiltered([]);
     }
 
-    setPokemonFiltered(
-      simplePokemonList.filter(poke =>
-        poke.name.toLowerCase().includes(term.toLowerCase()),
-      ),
-    );
+    if (isNaN(Number(term))) {
+      setPokemonFiltered(
+        simplePokemonList.filter(poke =>
+          poke.name.toLowerCase().includes(term.toLowerCase()),
+        ),
+      );
+    }
+
+    if (!isNaN(Number(term))) {
+      const pokemonById = simplePokemonList.find(poke => poke.id === term);
+      setPokemonFiltered(pokemonById ? [pokemonById] : []);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [term]);
 
