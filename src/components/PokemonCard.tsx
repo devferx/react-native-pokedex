@@ -13,7 +13,7 @@ import {
 import ImageColors from 'react-native-image-colors';
 
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
-import {RootStackParams} from '../navigator/Navigator';
+import {RootStackParams} from '../navigator/Tab1';
 import {FadeInImage} from './FadeInImage';
 
 const windowWidth = Dimensions.get('window').width;
